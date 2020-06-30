@@ -8,17 +8,17 @@ let mine_count = 10;
 function createBoard() {
 
     for (let i = 0; i < row_count; i++) {
-        const row = document.createElement('div');  
+        const row = document.createElement('');  //------#2.Something is wrong here , fix this
         row.className = "row";
         board.append(row);
 
-        for (let j = 0; j < col_count; j++) {
+        for (let j = 0; j < col_count; ) {       //------#3.This loop may never stop execting, can you fix this!  
             const cell = document.createElement('div');
             cell.className = "cell";
             cell.id = i + "_" + j;
             row.append(cell);
 
-            cell.addEventListener('click',function(){
+            cell.addEventListener(,function(){   //------#7. The first parameter is missing , please add it
                 handleClick(i,j);
             })
 
@@ -31,16 +31,16 @@ function createBoard() {
     }
 
     let positionsArray = createMinePositions();
-    placeTheMines(positionsArray);
+    placeTheMines(positionsArray);        
 }
 
 function createMinePositions() {
 
-    let arrMinePositions = [];
+    let arrMinePositions = ;                     //------#4. Initialize an empty array
 
     for (var i = 0; i < mine_count;) {
 
-        let x = Math.floor(Math.random() * row_count);
+        let x = Math.floor(Math.random() * row_count); 
         let y = Math.floor(Math.random() * col_count);
         
         let isUnique=true;
@@ -56,7 +56,7 @@ function createMinePositions() {
 
         if(isUnique)
         {
-            let position = [x, y];
+            let position = [  , ];                //------#5. what values should this array contain? Are they x and y?         
             arrMinePositions[i] = position;
             i++;
         }       
@@ -67,8 +67,8 @@ function createMinePositions() {
 
 function placeTheMines(minePositions) {
     for (let i = 0; i < mine_count; i++) {
-        let eachPosition = minePositions[i];
-
+        
+        let eachPosition = minePositions[i];       //------#6. Try to get x and y withouth creating the eachPosition variable. (Hint: minePositions[i][0])
         let x = eachPosition[0];
         let y = eachPosition[1];
 
@@ -139,8 +139,10 @@ function reveal(x,y)
 				for(let n=Math.max(y-1,0);n<=Math.min(y+1,col_count-1);n++)
 				{
 					//Recursive call 
-					reveal(m,n);
-				}
+					
+                                                            //------#8. Add the missing recursive function call , pass m and n
+				
+                }
 			}
 		}
 	}
@@ -149,7 +151,11 @@ function reveal(x,y)
 function handleRightClick(x,y)
 {
 	let cell=document.getElementById(x+"_"+y);
-    if(!cell.classList.contains("revealed"))
+    if(cell.classList.contains("revealed"))
+    {
+
+    }
+    else
     {
         if(cell.classList.contains("flagged"))
 		{
