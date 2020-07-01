@@ -8,17 +8,17 @@ let mine_count = 10;
 function createBoard() {
 
     for (let i = 0; i < row_count; i++) {
-        const row = document.createElement('');  //------#2.Something is wrong here , fix this
+        const row = document.createElement('');  //------#2.Something is wrong here , fix this  (Video: Create the row)
         row.className = "row";
         board.append(row);
 
-        for (let j = 0; j < col_count; ) {       //------#3.This loop may never stop execting, can you fix this!  
+        for (let j = 0; j < col_count; ) {       //------#3.This loop may never stop execting, can you fix this! (Video: for loops) 
             const cell = document.createElement('div');
             cell.className = "cell";
             cell.id = i + "_" + j;
             row.append(cell);
 
-            cell.addEventListener(,function(){   //------#7. The first parameter is missing , please add it
+            cell.addEventListener(,function(){   //------#7. The first parameter is missing , please add it (Video: Handle click on a cell)
                 handleClick(i,j);
             })
 
@@ -36,7 +36,7 @@ function createBoard() {
 
 function createMinePositions() {
 
-    let arrMinePositions = ;                     //------#4. Initialize an empty array
+    let arrMinePositions = ;                     //------#4. Initialize an empty array (Video: Generate mine positions)
 
     for (var i = 0; i < mine_count;) {
 
@@ -56,7 +56,7 @@ function createMinePositions() {
 
         if(isUnique)
         {
-            let position = [  , ];                //------#5. what values should this array contain? Are they x and y?         
+            let position = [  , ];                //------#5. what values should this array contain? Are they x and y?          
             arrMinePositions[i] = position;
             i++;
         }       
@@ -102,55 +102,55 @@ function handleClick(x, y) {
 
 function reveal(x,y)
 {
-	let cell=document.getElementById(x+"_"+y);
+    let cell=document.getElementById(x+"_"+y);
 
     if(cell.classList.contains('revealed'))
     {
         //already revealed
     }
     else
-	{
-		cell.classList.add('revealed');
-		let mine_count_adjacent=0;
+    {
+        cell.classList.add('revealed');
+        let mine_count_adjacent=0;
 
-		for (let m=Math.max(x-1,0);m<=Math.min(x+1,row_count-1);m++)
-		{
-			for(let n=Math.max(y-1,0);n<=Math.min(y+1,col_count-1);n++)
-			{
-		    	let adjacentCell=document.getElementById(m+"_"+n);  		
+        for (let m=Math.max(x-1,0);m<=Math.min(x+1,row_count-1);m++)
+        {
+            for(let n=Math.max(y-1,0);n<=Math.min(y+1,col_count-1);n++)
+            {
+                let adjacentCell=document.getElementById(m+"_"+n);          
 
-		    	if(adjacentCell.classList.contains("mine"))
-		    	{
-		    		mine_count_adjacent++;
-		    	}
-			}
-		}
-
-
-		if(mine_count_adjacent)
-		{	
-			cell.innerHTML=mine_count_adjacent;
-		}
-		else
-		{
-			//Explore the adjacent cells
-			for (let m=Math.max(x-1,0);m<=Math.min(x+1,row_count-1);m++)
-			{
-				for(let n=Math.max(y-1,0);n<=Math.min(y+1,col_count-1);n++)
-				{
-					//Recursive call 
-					
-                                                            //------#8. Add the missing recursive function call , pass m and n
-				
+                if(adjacentCell.classList.contains("mine"))
+                {
+                    mine_count_adjacent++;
                 }
-			}
-		}
-	}
+            }
+        }
+
+
+        if(mine_count_adjacent)
+        {   
+            cell.innerHTML=mine_count_adjacent;
+        }
+        else
+        {
+            //Explore the adjacent cells
+            for (let m=Math.max(x-1,0);m<=Math.min(x+1,row_count-1);m++)
+            {
+                for(let n=Math.max(y-1,0);n<=Math.min(y+1,col_count-1);n++)
+                {
+                    //Recursive call 
+                    
+                                                            //------#8. Add the missing recursive function call , pass m and n (Video: Reveal all the non-mine cells)
+                
+                }
+            }
+        }
+    }
 }
 
 function handleRightClick(x,y)
 {
-	let cell=document.getElementById(x+"_"+y);
+    let cell=document.getElementById(x+"_"+y);
     if(cell.classList.contains("revealed"))
     {
 
@@ -158,13 +158,13 @@ function handleRightClick(x,y)
     else
     {
         if(cell.classList.contains("flagged"))
-		{
-			cell.classList.remove("flagged");
-		}
-		else
-		{
-			cell.classList.add("flagged");
-		}
+        {
+            cell.classList.remove("flagged");
+        }
+        else
+        {
+            cell.classList.add("flagged");
+        }
     }
 }
 
@@ -173,13 +173,13 @@ function checkIfWon()
     var minesRevealed=document.getElementsByClassName("mine revealed").length;
     var cellsStillHidden=row_count*col_count - document.getElementsByClassName("cell revealed").length;
     
-	if(minesRevealed>0)
-	{
+    if(minesRevealed>0)
+    {
         showGameOverMessage(false);
-	}else if(cellsStillHidden==mine_count)
-	{
+    }else if(cellsStillHidden==mine_count)
+    {
         showGameOverMessage(true);
-	}
+    }
 }
 
 function showGameOverMessage(won)
